@@ -1,17 +1,23 @@
-import pandas as pd
-import numpy as np
-import altair as alt
-import streamlit as st
-import psycopg2
-import postgreconnect
-from altair import datum
+import sqlite3
+def show_all():
+  conn=sqlite3.connect('customer.db')
+  c=conn.cursor()
+  c.execute("""CREATE TABLE customers (
+          first_name text,
+          last_name text,
+          e_mail text )""")
 
-#Define a sql to fetch data from CARS table (PostgreSQL table hosted on Heroku)
+  conn=sqlite3.connect('customer.db')
+  c=conn.cursor()
+  many_customers =[('Tom','Sawyer','tom@sawyer.com'),('Elon','Gates','elon@gates.com'),('Bill','Musk','bill@musk.com')]
+  # Insert data into table
+  c.executemany("INSERT INTO customers values(?,?,?)",many_customers)
+  conn.commit()
+  conn.close()
 
-company_data='Select * from company;'
-#postgreconnect.runquery function is called by passing on the sql. The function runquery returns the data from the CARS table.
-
-#The returned data is converted into a DataFrame.
-sql_data=pd.DataFrame(postgreconnect.runquery(company_data))
-
-st.table(sql_data)
+def add_one(first,last,email):
+  conn=sqlite3.connect('customer.db')
+  c=conn.cursor()
+  c.execute("INSERT INTO customers values(?,?,?)",(first,last,email))
+  conn.commit()
+  conn.close()
