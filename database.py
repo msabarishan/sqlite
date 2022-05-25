@@ -1,5 +1,16 @@
 import sqlite3
 
+# Function for creating table
+def create_table(table_name):
+  conn=sqlite3.connect('customer.db')
+  c=conn.cursor()
+  c.execute("""CREATE TABLE (?) (
+          first_name text,
+          last_name text,
+          e_mail text )""",(table_name))
+  conn.commit()
+  conn.close()
+ 
 # Function for displaying Database(DB)
 def show_all():
   conn=sqlite3.connect('customer.db')
