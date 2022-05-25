@@ -1,23 +1,19 @@
-import sqlite3
-def show_all():
-  conn=sqlite3.connect('customer.db')
-  c=conn.cursor()
-  c.execute("""CREATE TABLE customers (
-          first_name text,
-          last_name text,
-          e_mail text )""")
+import database
 
-  conn=sqlite3.connect('customer.db')
-  c=conn.cursor()
-  many_customers =[('Tom','Sawyer','tom@sawyer.com'),('Elon','Gates','elon@gates.com'),('Bill','Musk','bill@musk.com')]
-  # Insert data into table
-  c.executemany("INSERT INTO customers values(?,?,?)",many_customers)
-  conn.commit()
-  conn.close()
+# Adding list of data into Database DB)
+data_list =[
+    ('Brenda','Smart','brenda@smart.com'),
+    ('Ezhikil','Kingston','ezhikil@kingston.com'),
+    ('Leonard','Cooper','leonard@cooper.com')
+    ]
+database.add_many(data_list)
 
-def add_one(first,last,email):
-  conn=sqlite3.connect('customer.db')
-  c=conn.cursor()
-  c.execute("INSERT INTO customers values(?,?,?)",(first,last,email))
-  conn.commit()
-  conn.close()
+# Displaying the data from DB
+database.show_all()
+
+# Lookup and display based on e_mail address
+database.email_lookup("brenda@smart.com")
+
+# Deleting data from database based on ID
+database.delete_one('5')
+
