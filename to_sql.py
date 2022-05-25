@@ -1,5 +1,8 @@
 import database
 
+# if table does not exist in database use the following codes else skip to line 7
+database.create_table("customers")
+
 # Adding list of data into Database DB)
 data_list =[
     ('Brenda','Smart','brenda@smart.com'),
