@@ -1,7 +1,15 @@
 import database
 
-# if table does not exist in database use the following codes else skip to line 7
-database.create_table("customers")
+# if table does not exist in database use the following codes else skip
+# Codes for creating table named 'customers
+conn=sqlite3.connect('customer.db')
+  c=conn.cursor()
+  c.execute("""CREATE TABLE customers (
+          first_name text,
+          last_name text,
+          e_mail text )""",(table_name))
+  conn.commit()
+  conn.close()
 
 # Adding list of data into Database DB)
 data_list =[
